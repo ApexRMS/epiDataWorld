@@ -20,9 +20,9 @@
         <datasheets>
           <datasheet name="AllJurisdictions" displayName="All Jurisdictions">
             <columns>
-              <column name="AllJurisdictionsID" isPrimary="True"/>
-              <column name="ProjectID" />
-              <column name="Name"/>
+              <column name="AllJurisdictionsID" dataType="Integer" isPrimary="True"/>
+              <column name="ProjectID" dataType="Integer"/>
+              <column name="Name" dataType="String"/>
             </columns>
           </datasheet>
         </datasheets>
@@ -32,9 +32,9 @@
         <datasheets>
           <datasheet name="AllLevels" displayName="All Levels">
             <columns>
-              <column name="AllLevelsID" isPrimary="True"/>
-              <column name="ProjectID"/>
-              <column name="Name"/>
+              <column name="AllLevelsID" dataType="Integer" isPrimary="True"/>
+              <column name="ProjectID" dataType="Integer"/>
+              <column name="Name" dataType="String"/>
             </columns>
             <defaultRecords>
               <record columns="Name" values="Country"/>
