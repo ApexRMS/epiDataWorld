@@ -27,6 +27,7 @@ rollback <- function(df, column){
   if(is.data.frame(df)){
   
     df[[column]] <- df[[column]] - lag(df[[column]])
+    df[[column]][is.na(df[[column]])] <- 0
     
   } else {
     
