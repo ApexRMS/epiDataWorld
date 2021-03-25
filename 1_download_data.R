@@ -33,7 +33,7 @@ if (length(inputs$Jurisdiction) != 0){
   
   juris_input <- inputs$Jurisdiction
   
-  if (juris == "World"){
+  if (juris_input == "World"){
     
     juris_covid <- NULL
     
@@ -75,8 +75,8 @@ covidData <- COVID19::covid19(country = juris_covid,
                               verbose = FALSE)
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
-  group_by(Jurisdiction) #%>% 
-#arrange(date, descending = TRUE)
+  group_by(Jurisdiction) %>% 
+  mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed))
 
 # Save in epi package -----------------------------------------------------
 
@@ -88,7 +88,6 @@ saveDatasheet(mySce,
               data.frame(Name = allJuris), "epi_Jurisdiction")
 saveDatasheet(mySce, 
               data.frame(Name = vars), "epi_Variable")
-
 
 # Process Data ------------------------------------------------------------
 
@@ -113,13 +112,16 @@ if ("Cases - Cumulative" %in% vars){
       covidDataSubset %>% 
         rename(Timestep = date, value = confirmed) %>% 
         arrange(Timestep) %>% 
-        mutate(value = cumsum(ifelse(is.na(value), 0, value))) %>% 
+        mutate(value = cumsum(value)) %>% 
         mutate(Variable = "Cases - Cumulative") %>% 
         ungroup()
       
     )
-
+  
 }
+
+# Save the data
+saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 
 # Write out data ----------------------------------------------------------
 
@@ -130,3 +132,12 @@ fileName <- paste0("COVID19_Data_", juris_no_space, "_by_", level_input, ".csv")
 filePath <- file.path(transferDir, fileName)
 
 write.csv(covidDataFinal, filePath, row.names = FALSE)
+
+# Save output info --------------------------------------------------------
+
+output <- datasheet(mySce, "epiDataWorld_Outputs") %>% 
+  addRow(list(Jurisdiction = juris_input,
+              RegionalSummaryDataFile = filePath,
+              DownloadDateTime = as.character(Sys.time())))
+
+saveDatasheet(mySce, output, "epiDataWorld_Outputs")
