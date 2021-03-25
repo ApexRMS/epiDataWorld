@@ -63,6 +63,8 @@ if(length(inputs$Level) != 0){
   
   message("No level provided, devfault to level 1 (Country)")
   
+  level_covid <- 1
+  
 }
 
 # TODO use this to filter data
