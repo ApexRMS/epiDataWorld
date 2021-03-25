@@ -13,6 +13,39 @@
       isRunnable ="True">
       
       <datafeeds>
+
+      <!-- Project level Datafeeds -->
+      
+      <datafeed name="AllJurisdictions" displayName="All Jurisdictions" dataScope="Project" valueMember="AllJurisdictionsID" displayMember="Name">
+        <datasheets>
+          <datasheet name="AllJurisdictions" displayName="All Jurisdictions">
+            <columns>
+              <column name="AllJurisdictionsID" isPrimary="True"/>
+              <column name="ProjectID" />
+              <column name="Name"/>
+            </columns>
+          </datasheet>
+        </datasheets>
+      </datafeed>
+
+      <datafeed name="AllLevels" displayName="All Levels" dataScope="Project" valueMember="AllLevelsID" displayMember="Name">
+        <datasheets>
+          <datasheet name="AllLevels" displayName="All Levels">
+            <columns>
+              <column name="AllLevelsID" isPrimary="True"/>
+              <column name="ProjectID"/>
+              <column name="Name"/>
+            </columns>
+            <defaultRecords>
+              <record columns="Name" values="Country"/>
+              <record columns="Name" values="State"/>
+              <record columns="Name" values="Lower"/>
+            </defaultRecords>
+          </datasheet>
+        </datasheets>
+      </datafeed>
+
+      <!-- Scenario level Datafeeds -->
         
         <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
           <datasheets>
@@ -20,10 +53,12 @@
               <columns>
                 <column name="InputID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Jurisdiction" dataType="String" validationType="Datasheet" formula1="AllLevels"/>
               </columns>
               <defaultRecords>
                 <record columns="Jurisdiction" values="World"/>
+                <record columns="Level" values="Country"/>
               </defaultRecords>
             </datasheet>
           </datasheets>
