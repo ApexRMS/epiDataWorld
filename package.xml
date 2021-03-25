@@ -16,9 +16,9 @@
 
       <!-- Project level Datafeeds -->
       
-      <datafeed name="AllJurisdictions" displayName="Jurisdictions" dataScope="Project" valueMember="AllJurisdictionsID" displayMember="Name">
+      <datafeed name="AllJurisdictions" displayName="Jurisdictions" dataScope="Project">
         <datasheets>
-          <datasheet name="AllJurisdictions" displayName="Jurisdictions">
+          <datasheet name="AllJurisdictions" displayName="Jurisdictions" valueMember="AllJurisdictionsID" displayMember="Name">
             <columns>
               <column name="AllJurisdictionsID" dataType="Integer" isPrimary="True"/>
               <column name="ProjectID" dataType="Integer"/>
@@ -26,15 +26,15 @@
             </columns>
             <defaultRecords>
               <record columns="Name" values="World"/>
-              <record columns="Name" values="US"/>
+              <record columns="Name" values="United States"/>
             </defaultRecords>
           </datasheet>
         </datasheets>
       </datafeed>
 
-      <datafeed name="AllLevels" displayName="Levels" dataScope="Project" valueMember="AllLevelsID" displayMember="Name">
+      <datafeed name="AllLevels" displayName="Levels" dataScope="Project" >
         <datasheets>
-          <datasheet name="AllLevels" displayName="Levels">
+          <datasheet name="AllLevels" displayName="Levels" valueMember="AllLevelsID" displayMember="Name">
             <columns>
               <column name="AllLevelsID" dataType="Integer" isPrimary="True"/>
               <column name="ProjectID" dataType="Integer"/>
@@ -51,37 +51,33 @@
 
       <!-- Scenario level Datafeeds -->
         
-        <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
-          <datasheets>
-            <datasheet name="Inputs" displayName="Download Data - Inputs" isSingleRow="True">
-              <columns>
-                <column name="InputID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String" validationType="Datasheet" formula1="AllJurisdictions"/>
-                <column name="Level" displayName="Jurisdiction" dataType="String" validationType="Datasheet" formula1="AllLevels"/>
-              </columns>
-              <defaultRecords>
-                <record columns="Jurisdiction" values="World"/>
-                <record columns="Level" values="Country"/>
-              </defaultRecords>
-            </datasheet>
-          </datasheets>
-        </datafeed>
+      <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
+        <datasheets>
+          <datasheet name="Inputs" displayName="Download Data - Inputs" isSingleRow="True">
+            <columns>
+              <column name="InputID" dataType="Integer" isPrimary="True"/>
+              <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+              <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+              <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+            </columns>
+          </datasheet>
+        </datasheets>
+      </datafeed>
         
-        <datafeed name="Outputs" displayName="Download Data - Outputs" dataScope="Scenario">
-          <datasheets>
-            <datasheet name="Outputs" displayName="Download Data - Outputs" isSingleRow="True">
-              <columns>
-                <column name="InputID" dataType="Integer" isPrimary="True"/>
-                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
-                <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
-                <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
-              </columns>
-            </datasheet>
-          </datasheets>
-        </datafeed>
-      
+      <datafeed name="Outputs" displayName="Download Data - Outputs" dataScope="Scenario">
+        <datasheets>
+          <datasheet name="Outputs" displayName="Download Data - Outputs" isSingleRow="True">
+            <columns>
+              <column name="InputID" dataType="Integer" isPrimary="True"/>
+              <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+              <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
+              <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
+              <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
+            </columns>
+          </datasheet>
+        </datasheets>
+      </datafeed>
+    
       </datafeeds>
       
       <pipeline>
@@ -95,12 +91,14 @@
   </transformers>
   
   <layouts>
-
+ 
     <layout name="coreforms_ProjectDatafeeds">
-		  <item name="AllJurisdictions" displayName="Jurisdictions"/>
-		  <item name="AllLevels" displayName="Levels"/>
+      <group name="Variables" displayName="Variables" insertAfter="epi_Jurisdiction">
+        <item name="AllJurisdictions" displayName="Jurisdictions"/>
+        <item name="AllLevels" displayName="Levels"/>
+      </group>
     </layout>
-    
+
     <layout name="coreforms_ScenarioDatafeeds">
       <group name="Download" displayName="Data Download" appendTo="epi_Sources">
 		    <item name="Inputs" displayName="Inputs"/>
