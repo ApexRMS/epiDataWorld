@@ -76,7 +76,8 @@ covidData <- COVID19::covid19(country = juris_covid,
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
   group_by(Jurisdiction) %>% 
-  mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed))
+  mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed)) %>% 
+  arrange(date)
 
 # Save in epi package -----------------------------------------------------
 
@@ -99,8 +100,11 @@ if ("Cases - Daily" %in% vars){
     bind_rows(
       covidDataSubset %>% 
         rename(Timestep = date, value = confirmed) %>% 
-        mutate(Variable = "Cases - Daily") %>% 
+        arrange(Timestep) %>%
+        group_modify(~rollback(.x, column = "value")) %>% 
+        mutate(Variable = "Cases - Cumulative") %>% 
         ungroup()
+      
     )
   
 }
@@ -111,11 +115,8 @@ if ("Cases - Cumulative" %in% vars){
     bind_rows(
       covidDataSubset %>% 
         rename(Timestep = date, value = confirmed) %>% 
-        arrange(Timestep) %>% 
-        mutate(value = cumsum(value)) %>% 
-        mutate(Variable = "Cases - Cumulative") %>% 
+        mutate(Variable = "Cases - Daily") %>% 
         ungroup()
-      
     )
   
 }

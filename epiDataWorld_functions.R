@@ -21,3 +21,19 @@ lookup_level <- function(level){
   return(level_int)
   
 }
+
+rollback <- function(df, column){
+  
+  if(is.data.frame(df)){
+  
+    df[[column]] <- df[[column]] - lag(df[[column]])
+    
+  } else {
+    
+    stop("df should be of type data.frame")
+    
+  }
+  
+  return(df)
+  
+}
