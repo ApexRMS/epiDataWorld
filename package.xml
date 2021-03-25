@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package name="epiDataWorld" displayName="Add-On to the epi package for world covid data" isAddOn="True" extendsPackage="epi" version="1.0.0">
+<package name="epiDataWorld" displayName="Add-on to the epi package for world covid data" isAddOn="True" extendsPackage="epi" version="1.0.0">
   
   <transformers>
     <transformer
@@ -58,7 +58,7 @@
   <layouts>
     
     <layout name="coreforms_ScenarioDatafeeds">
-      <group name="bcCdc" displayName="BC CDC Download" appendTo="epi_Sources">
+      <group name="Download" displayName="Data Download" appendTo="epi_Sources">
 		  <item name="Inputs" displayName="Inputs"/>
 		  <item name="Outputs" displayName="Outputs"/>
       </group>
