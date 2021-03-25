@@ -290,12 +290,13 @@
   
   <layouts>
  
+    <!-- Uncomment this to expose the Project-level datasheets of this package
     <layout name="coreforms_ProjectDatafeeds">
-      <group name="Variables" displayName="Variables" insertAfter="epi_Jurisdiction">
+      <group name="OtherVariables" displayName="OtherVariables" insertAfter="epi_Jurisdiction">
         <item name="AllJurisdictions" displayName="Jurisdictions"/>
         <item name="AllLevels" displayName="Levels"/>
       </group>
-    </layout>
+    </layout> -->
 
     <layout name="coreforms_ScenarioDatafeeds">
       <group name="Download" displayName="Data Download" appendTo="epi_Sources">
