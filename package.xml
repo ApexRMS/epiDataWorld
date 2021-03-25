@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package name="epiDataWorld" displayName="Add-On to the epi package for world covid data" isAddOn="True" extendsPackage="epi" version="1.0.0">
+  
+  <transformers>
+    <transformer
+      name="Download"
+      isPrimary="True"
+      displayName="Download Covid19 data"
+      programName="Rscript"
+      programArguments="1_download_data.R"
+      extendsTransformer="epi_Primary"
+      runContext="LocalOnly"
+      isRunnable ="True">
+      
+      <datafeeds>
+        
+        <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="Inputs" displayName="Download Data - Inputs" isSingleRow="True">
+              <columns>
+                <column name="InputID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
+              </columns>
+              <defaultRecords>
+                <record columns="Jurisdiction" values="World"/>
+              </defaultRecords>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+        
+        <datafeed name="Outputs" displayName="Download Data - Outputs" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="Outputs" displayName="Download Data - Outputs" isSingleRow="True">
+              <columns>
+                <column name="InputID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
+                <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
+              </columns>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+      
+      </datafeeds>
+      
+      <pipeline>
+        <datafeed name="Inputs" type="Input"/>
+        <datafeed name="Outputs" type="Output"/>        
+        <datafeed name="epi_DataSummary" type="Output"/>
+        <datafeed name="epi_RunControl" type="Output"/>
+      </pipeline>
+    
+    </transformer>
+  </transformers>
+  
+  <layouts>
+    
+    <layout name="coreforms_ScenarioDatafeeds">
+      <group name="bcCdc" displayName="BC CDC Download" appendTo="epi_Sources">
+		  <item name="Inputs" displayName="Inputs"/>
+		  <item name="Outputs" displayName="Outputs"/>
+      </group>
+    </layout>
+  
+  </layouts>
+
+</package>
