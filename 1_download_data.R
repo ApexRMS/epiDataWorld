@@ -72,7 +72,9 @@ runControl <- datasheet(mySce, "epi_RunControl")
 
 covidData <- COVID19::covid19(country = juris_covid, 
                               level = level_covid, 
-                              verbose = FALSE)
+                              verbose = FALSE, 
+                              raw = TRUE)
+
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
   group_by(Jurisdiction) %>% 
@@ -96,13 +98,15 @@ covidDataFinal <- data.frame()
 
 if ("Cases - Daily" %in% vars){
   
+  # Need to apply rollback function
   covidDataFinal <- covidDataFinal %>% 
     bind_rows(
       covidDataSubset %>% 
         rename(Timestep = date, value = confirmed) %>% 
         arrange(Timestep) %>%
         group_modify(~rollback(.x, column = "value")) %>% 
-        mutate(Variable = "Cases - Cumulative") %>% 
+        filter(value >= 0) %>% 
+        mutate(Variable = "Cases - Daily") %>% 
         ungroup()
       
     )
@@ -111,11 +115,12 @@ if ("Cases - Daily" %in% vars){
 
 if ("Cases - Cumulative" %in% vars){
   
+  # Already cumulative, just need to rename
   covidDataFinal <- covidDataFinal %>% 
     bind_rows(
       covidDataSubset %>% 
         rename(Timestep = date, value = confirmed) %>% 
-        mutate(Variable = "Cases - Daily") %>% 
+        mutate(Variable = "Cases - Cumulative") %>% 
         ungroup()
     )
   
