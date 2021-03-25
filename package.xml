@@ -16,21 +16,25 @@
 
       <!-- Project level Datafeeds -->
       
-      <datafeed name="AllJurisdictions" displayName="All Jurisdictions" dataScope="Project" valueMember="AllJurisdictionsID" displayMember="Name">
+      <datafeed name="AllJurisdictions" displayName="Jurisdictions" dataScope="Project" valueMember="AllJurisdictionsID" displayMember="Name">
         <datasheets>
-          <datasheet name="AllJurisdictions" displayName="All Jurisdictions">
+          <datasheet name="AllJurisdictions" displayName="Jurisdictions">
             <columns>
               <column name="AllJurisdictionsID" dataType="Integer" isPrimary="True"/>
               <column name="ProjectID" dataType="Integer"/>
               <column name="Name" dataType="String"/>
             </columns>
+            <defaultRecords>
+              <record columns="Name" values="World"/>
+              <record columns="Name" values="US"/>
+            </defaultRecords>
           </datasheet>
         </datasheets>
       </datafeed>
 
-      <datafeed name="AllLevels" displayName="All Levels" dataScope="Project" valueMember="AllLevelsID" displayMember="Name">
+      <datafeed name="AllLevels" displayName="Levels" dataScope="Project" valueMember="AllLevelsID" displayMember="Name">
         <datasheets>
-          <datasheet name="AllLevels" displayName="All Levels">
+          <datasheet name="AllLevels" displayName="Levels">
             <columns>
               <column name="AllLevelsID" dataType="Integer" isPrimary="True"/>
               <column name="ProjectID" dataType="Integer"/>
@@ -91,11 +95,16 @@
   </transformers>
   
   <layouts>
+
+    <layout name="coreforms_ProjectDatafeeds">
+		  <item name="AllJurisdictions" displayName="Jurisdictions"/>
+		  <item name="AllLevels" displayName="Levels"/>
+    </layout>
     
     <layout name="coreforms_ScenarioDatafeeds">
       <group name="Download" displayName="Data Download" appendTo="epi_Sources">
-		  <item name="Inputs" displayName="Inputs"/>
-		  <item name="Outputs" displayName="Outputs"/>
+		    <item name="Inputs" displayName="Inputs"/>
+		    <item name="Outputs" displayName="Outputs"/>
       </group>
     </layout>
   
