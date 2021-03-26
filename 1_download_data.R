@@ -60,6 +60,7 @@ if(length(inputs$Level) != 0){
   
   message("No level provided, devfault to level 1 (Country)")
   
+  level_input <- "Country"
   level_covid <- 1
   
 }
@@ -77,7 +78,7 @@ covidData <- COVID19::covid19(country = juris_covid,
                               verbose = FALSE, 
                               raw = TRUE)
 
-composeName <- !(juris_input != "World" && level_covid == 1)
+composeName <- !(level_covid == 1)
 
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
@@ -138,11 +139,11 @@ saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 # Write out data ----------------------------------------------------------
 
 juris_no_space <- gsub("[[:space:]]", "_", juris_input)
-level_input <- gsub("[[:space:]]", "_", level_input)
-level_input <- gsub("[[:punct:]]", "", level_input)
-level_input <- gsub("[[:digit:]]", "", level_input)
+# level_input <- gsub("[[:space:]]", "_", level_input)
+# level_input <- gsub("[[:punct:]]", "", level_input)
+# level_input <- gsub("[[:digit:]]", "", level_input)
 
-fileName <- paste0("COVID19_Data_", juris_no_space, "_by_", level_input, ".csv")
+fileName <- paste0("COVID19_Data_", juris_no_space, "_by_level_", level_covid, ".csv")
 
 filePath <- file.path(transferDir, fileName)
 
@@ -152,7 +153,8 @@ write.csv(covidDataFinal, filePath, row.names = FALSE)
 
 output <- datasheet(mySce, "epiDataWorld_Outputs") %>% 
   addRow(list(Jurisdiction = juris_input,
-              RegionalSummaryDataFile = filePath,
-              DownloadDateTime = as.character(Sys.time())))
+              RegionalSummaryDataFile = filePath, 
+              DownloadDateTime = ""))
+output$DownloadDateTime <- as.character(Sys.time())
 
 saveDatasheet(mySce, output, "epiDataWorld_Outputs")

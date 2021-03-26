@@ -240,7 +240,7 @@
             </columns>
             <defaultRecords>
               <record columns="Name" values="(1) Country"/>
-              <record columns="Name" values="(2) State"/>
+              <record columns="Name" values="(2) State / Province"/>
               <record columns="Name" values="(3) Lower"/>
             </defaultRecords>
           </datasheet>
