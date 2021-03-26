@@ -56,9 +56,6 @@ if(length(inputs$Level) != 0){
   
   level_covid <- lookup_level(inputs$Level)
   
-  # Make admin level name
-  admin_level_name <- paste0("administrative_area_level_", level_covid)
-  
 } else {
   
   message("No level provided, devfault to level 1 (Country)")
@@ -66,6 +63,9 @@ if(length(inputs$Level) != 0){
   level_covid <- 1
   
 }
+
+# Make admin level name
+admin_level_name <- paste0("administrative_area_level_", level_covid)
 
 # TODO use this to filter data
 runControl <- datasheet(mySce, "epi_RunControl")
@@ -77,8 +77,11 @@ covidData <- COVID19::covid19(country = juris_covid,
                               verbose = FALSE, 
                               raw = TRUE)
 
+composeName <- !(juris_input != "World" && level_covid == 1)
+
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
+  mutate(Jurisdiction = ifelse(composeName, paste0(juris_input, " - ", Jurisdiction), Jurisdiction))  %>% 
   group_by(Jurisdiction) %>% 
   mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed)) %>% 
   arrange(date)
