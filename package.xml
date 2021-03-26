@@ -258,9 +258,10 @@
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
               <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
             </columns>
-            <defaultRecords>
+            <!-- Not possible to set defualt values with validated data - would need dll -->
+            <!-- <defaultRecords>
               <record columns="Jurisdiction" values="World"/>
-            </defaultRecords>
+            </defaultRecords> -->
           </datasheet>
         </datasheets>
       </datafeed>
