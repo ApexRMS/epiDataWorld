@@ -153,7 +153,7 @@ write.csv(covidDataFinal, filePath, row.names = FALSE)
 
 output <- datasheet(mySce, "epiDataWorld_Outputs") %>% 
   addRow(list(Jurisdiction = juris_input,
-              Level =, 
+              Level = level_input, 
               RegionalSummaryDataFile = filePath, 
               DownloadDateTime = ""))
 output$DownloadDateTime <- as.character(Sys.time())
