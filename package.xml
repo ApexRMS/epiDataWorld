@@ -271,8 +271,8 @@
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column name="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
-              <column name="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+              <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
+              <column name="Level" displayName="Level" dataType="Integer"/>
               <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
               <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
             </columns>
