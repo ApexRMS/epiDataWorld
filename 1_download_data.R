@@ -60,7 +60,7 @@ if(length(inputs$Level) != 0){
   
   message("No level provided, devfault to level 1 (Country)")
   
-  level_input <- "Country"
+  level_input <- "(1) Country"
   level_covid <- 1
   
 }
@@ -153,6 +153,7 @@ write.csv(covidDataFinal, filePath, row.names = FALSE)
 
 output <- datasheet(mySce, "epiDataWorld_Outputs") %>% 
   addRow(list(Jurisdiction = juris_input,
+              Level =, 
               RegionalSummaryDataFile = filePath, 
               DownloadDateTime = ""))
 output$DownloadDateTime <- as.character(Sys.time())
