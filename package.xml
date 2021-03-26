@@ -239,9 +239,9 @@
               <column name="Name" dataType="String"/>
             </columns>
             <defaultRecords>
-              <record columns="Name" values="Country"/>
-              <record columns="Name" values="State"/>
-              <record columns="Name" values="Lower"/>
+              <record columns="Name" values="(1) Country"/>
+              <record columns="Name" values="(2) State"/>
+              <record columns="Name" values="(3) Lower"/>
             </defaultRecords>
           </datasheet>
         </datasheets>
