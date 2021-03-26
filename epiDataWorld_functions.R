@@ -4,11 +4,11 @@ lookup_level <- function(level){
   
   if(is.character(level)){
     
-    if(level == "Country"){
+    if(grepl("Country", level,  fixed = TRUE)){
       level_int = 1
-    } else if (level == "State"){
+    } else if (grepl("State", level,  fixed = TRUE)){
       level_int = 2
-    } else if (level == "Lower"){
+    } else if (grepl("Lower", level,  fixed = TRUE)){
       level_int = 3
     }
     
