@@ -81,8 +81,9 @@ composeName <- !(juris_input != "World" && level_covid == 1)
 
 covidDataSubset <- covidData %>% ungroup() %>% 
   select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
-  mutate(Jurisdiction = ifelse(composeName, paste0(juris_input, " - ", Jurisdiction), Jurisdiction))  %>% 
   group_by(Jurisdiction) %>% 
+  mutate(Jurisdiction = ifelse(composeName, paste0(juris_input, " - ", Jurisdiction), 
+                               Jurisdiction))  %>%
   mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed)) %>% 
   arrange(date)
 
@@ -137,6 +138,9 @@ saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 # Write out data ----------------------------------------------------------
 
 juris_no_space <- gsub("[[:space:]]", "_", juris_input)
+level_input <- gsub("[[:space:]]", "_", level_input)
+level_input <- gsub("[[:punct:]]", "", level_input)
+level_input <- gsub("[[:digit:]]", "", level_input)
 
 fileName <- paste0("COVID19_Data_", juris_no_space, "_by_", level_input, ".csv")
 
