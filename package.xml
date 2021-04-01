@@ -247,6 +247,22 @@
         </datasheets>
       </datafeed>
 
+      <datafeed name="AllDataSources" displayName="DataSources" dataScope="Project" >
+        <datasheets>
+          <datasheet name="AllDataSources" displayName="DataSources" valueMember="AllDataSourcesID" displayMember="Name">
+            <columns>
+              <column name="AllDataSourcesID" dataType="Integer" isPrimary="True"/>
+              <column name="ProjectID" dataType="Integer"/>
+              <column name="Name" dataType="String"/>
+            </columns>
+            <defaultRecords>
+              <record columns="Name" values="COVID19 Hub (R package)"/>
+              <record columns="Name" values="John Hopkins (direct query)"/>
+            </defaultRecords>
+          </datasheet>
+        </datasheets>
+      </datafeed>
+
       <!-- Scenario level Datafeeds -->
         
       <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
@@ -255,6 +271,7 @@
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+              <column nam="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
               <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
             </columns>
@@ -272,6 +289,7 @@
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+              <column nam="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="String"/>
               <column name="Level" displayName="Level" dataType="Integer"/>
               <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
