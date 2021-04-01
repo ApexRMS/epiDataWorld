@@ -271,7 +271,7 @@
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column nam="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+              <column name="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
               <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
             </columns>
