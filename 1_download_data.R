@@ -29,18 +29,19 @@ vars <- c("Cases - Daily", "Cases - Cumulative")
 # Query inputs ------------------------------------------------------------
 
 inputs <- datasheet(mySce, "epiDataWorld_Inputs", lookupsAsFactors = FALSE)
-source <- inputs$Source
+source <- inputs$DataSourceID
 
 # Check inputs ------------------------------------------------------------
 
 if(grepl("Hub", source)){
-
+  
+  input_vars <- COVID19Hub_check_inputs(inputs)
   covidDataSubset <- COVID19Hub_query_clean(inputs)
-
+  
 } else if (grepl("JHU", source)){
-
-  covidDataSubset <- JHUDirect_query_clean(inputs)
-
+  
+  covidDataSubset <- JHUDirect_query_clean(input_vars)
+  
 }
 
 # Save in epi package -----------------------------------------------------
@@ -71,12 +72,15 @@ saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 
 # Write out data ----------------------------------------------------------
 
-juris_no_space <- gsub("[[:space:]]", "_", juris_input)
-# level_input <- gsub("[[:space:]]", "_", level_input)
-# level_input <- gsub("[[:punct:]]", "", level_input)
-# level_input <- gsub("[[:digit:]]", "", level_input)
-
-fileName <- paste0("COVID19_Data_", juris_no_space, "_by_level_", level_covid, ".csv")
+if(grepl("Hub", source)){
+  
+  fileName <- COVID19Hub_make_filename(inputs)
+  
+} else if (grepl("JHU", source)){
+  
+  fileName <- JHUDirect_make_filename(inputs)
+  
+}
 
 filePath <- file.path(transferDir, fileName)
 
@@ -84,11 +88,15 @@ write.csv(covidDataFinal, filePath, row.names = FALSE)
 
 # Save output info --------------------------------------------------------
 
+download_time <- as.character(Sys.time())
+
 output <- datasheet(mySce, "epiDataWorld_Outputs") %>% 
-  addRow(list(Jurisdiction = juris_input,
-              Level = level_input, 
-              RegionalSummaryDataFile = filePath, 
-              DownloadDateTime = ""))
-output$DownloadDateTime <- as.character(Sys.time())
+  add_row()
+
+output$Jurisdiction = input_vars$juris_input
+output$DataSourceID = source
+output$Level = input_vars$level_input
+output$RegionalSummaryDataFile = filePath
+output$DownloadDateTime = download_time
 
 saveDatasheet(mySce, output, "epiDataWorld_Outputs")
