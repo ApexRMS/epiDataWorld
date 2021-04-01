@@ -8,6 +8,8 @@ library(rsyncrosim)
 library(COVID19)
 library(dplyr)
 library(tidyr)
+library(readr)
+library(lubridate)
 
 # Load Vars ---------------------------------------------------------------
 
@@ -40,6 +42,7 @@ if(grepl("Hub", source)){
   
 } else if (grepl("JHU", source)){
   
+  input_vars <- COVID19Hub_check_inputs(inputs)
   covidDataSubset <- JHUDirect_query_clean(input_vars)
   
 }
