@@ -22,7 +22,7 @@ transferDir <- e$TransferDirectory
 
 source(file.path(e$PackageDirectory, "epiDataWorld_functions.R"))
 source(file.path(e$PackageDirectory, "COVID19DataHub_functions.R"))
-source(file.path(e$PackageDirectory, "epiDataWorld_functions.R"))
+source(file.path(e$PackageDirectory, "JHUDirectQuery_functions.R"))
 
 # Define variables (now harcoded) -----------------------------------------
 
@@ -40,10 +40,11 @@ if(grepl("Hub", source)){
   input_vars <- COVID19Hub_check_inputs(inputs)
   covidDataSubset <- COVID19Hub_query_clean(inputs)
   
-} else if (grepl("JHU", source)){
+} else if (grepl("John Hopkins", source)){
   
+  # Use the same function for now for input vars parsing
   input_vars <- COVID19Hub_check_inputs(inputs)
-  covidDataSubset <- JHUDirect_query_clean(input_vars)
+  covidDataSubset <- JHUDirect_query_clean(input_vars, e)
   
 }
 
@@ -64,9 +65,9 @@ if(grepl("Hub", source)){
   
   covidDataFinal <- COVID19Hub_process(vars, covidDataSubset)
   
-} else if (grepl("JHU", source)){
+} else if (grepl("John Hopkins", source)){
   
-  covidDataSubset <- JHUDirect_process(vars, covidDataSubset)
+  covidDataFinal <- JHUDirect_process(vars, covidDataSubset)
   
 }
 
@@ -79,9 +80,10 @@ if(grepl("Hub", source)){
   
   fileName <- COVID19Hub_make_filename(inputs)
   
-} else if (grepl("JHU", source)){
+} else if (grepl("John Hopkins", source)){
   
-  fileName <- JHUDirect_make_filename(inputs)
+  # Use the same function for now
+  fileName <-  COVID19Hub_make_filename(inputs)
   
 }
 
