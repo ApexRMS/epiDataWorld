@@ -88,6 +88,7 @@ COVID19Hub_process <- function(vars, covidDataSubset){
         covidDataSubset %>% 
           rename(Timestep = date, value = confirmed) %>% 
           arrange(Timestep) %>%
+          group_by(Jurisdiction) %>%
           group_modify(~rollback(.x, column = "value")) %>% 
           filter(value >= 0) %>% 
           mutate(Variable = "Cases - Daily") %>% 

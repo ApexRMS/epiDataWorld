@@ -67,7 +67,8 @@ if(grepl("Hub", source)){
   
 } else if (grepl("John Hopkins", source)){
   
-  covidDataFinal <- JHUDirect_process(vars, covidDataSubset)
+  # Use the same function for now
+  covidDataFinal <- COVID19Hub_process(vars, covidDataSubset)
   
 }
 
