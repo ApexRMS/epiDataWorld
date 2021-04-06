@@ -73,6 +73,7 @@ if(grepl("Hub", source)){
 }
 
 # Save the data
+covidDataFinal$TransformerID="Download World Covid19 data"
 saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 
 # Write out data ----------------------------------------------------------

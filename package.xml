@@ -5,7 +5,7 @@
     <transformer
       name="Download"
       isPrimary="True"
-      displayName="Download Covid19 data"
+      displayName="Download World Covid19 data"
       programName="Rscript"
       programArguments="1_download_data.R"
       isStandalone="True"
