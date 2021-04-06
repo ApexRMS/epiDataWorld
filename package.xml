@@ -8,8 +8,7 @@
       displayName="Download Covid19 data"
       programName="Rscript"
       programArguments="1_download_data.R"
-      extendsTransformer="epi_Primary"
-      runContext="LocalOnly"
+      isStandalone="True"
       isRunnable ="True">
       
       <datafeeds>
@@ -302,10 +301,7 @@
       </datafeeds>
       
       <pipeline>
-        <datafeed name="Inputs" type="Input"/>
-        <datafeed name="Outputs" type="Output"/>        
-        <datafeed name="epi_DataSummary" type="Output"/>
-        <datafeed name="epi_RunControl" type="Output"/>
+        <datafeed name="Inputs"/>
       </pipeline>
     
     </transformer>
@@ -322,9 +318,18 @@
     </layout> -->
 
     <layout name="coreforms_ScenarioDatafeeds">
-      <group name="Download" displayName="Data Download" appendTo="epi_Sources">
-		    <item name="Inputs" displayName="Inputs"/>
-		    <item name="Outputs" displayName="Outputs"/>
+      <group name="epiDataWorld" displayName="Epi Data World" appendTo="epi_Sources">
+        <item name="Inputs" displayName="Inputs" showIf="isEither"/>
+        <group name="Results" displayName="Download Results">
+          <item name="Outputs" displayName="Raw" showIf="isResult"/>
+          <item
+            name="epi_DataSummary"
+            displayName="Summary"
+            transformerFilter="Download"
+            showIf="isResult"
+            viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
+            viewClassAssembly="SyncroSim.Core.Forms"/>
+        </group>
       </group>
     </layout>
   

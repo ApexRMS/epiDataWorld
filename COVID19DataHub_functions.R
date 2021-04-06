@@ -51,7 +51,7 @@ COVID19Hub_query_clean <- function(inputs_vars){
                              input_vars$level_covid)
   
   # TODO use this to filter data
-  runControl <- datasheet(mySce, "epi_RunControl")
+  #runControl <- datasheet(mySce, "epi_RunControl")
   
   # Download data -----------------------------------------------------------
   
