@@ -40,7 +40,7 @@ if(grepl("Hub", source)){
   input_vars <- COVID19Hub_check_inputs(inputs)
   covidDataSubset <- COVID19Hub_query_clean(inputs)
   
-} else if (grepl("John Hopkins", source)){
+} else if (grepl("Johns Hopkins", source)){
   
   # Use the same function for now for input vars parsing
   input_vars <- COVID19Hub_check_inputs(inputs)
@@ -50,7 +50,7 @@ if(grepl("Hub", source)){
 
 # Save in epi package -----------------------------------------------------
 
-# Get the vector of jurisdisctions
+# Get the vector of jurisdictions
 allJuris <- unique(covidDataSubset$Jurisdiction)
 
 # Add the required variables and jurisdictions to the SyncroSim project
@@ -65,7 +65,7 @@ if(grepl("Hub", source)){
   
   covidDataFinal <- COVID19Hub_process(vars, covidDataSubset)
   
-} else if (grepl("John Hopkins", source)){
+} else if (grepl("Johns Hopkins", source)){
   
   # Use the same function for now
   covidDataFinal <- COVID19Hub_process(vars, covidDataSubset)
@@ -73,7 +73,7 @@ if(grepl("Hub", source)){
 }
 
 # Save the data
-covidDataFinal$TransformerID="Download World Covid19 data"
+covidDataFinal$TransformerID="Download World Data"
 saveDatasheet(mySce, covidDataFinal, "epi_DataSummary")
 
 # Write out data ----------------------------------------------------------
@@ -82,7 +82,7 @@ if(grepl("Hub", source)){
   
   fileName <- COVID19Hub_make_filename(inputs)
   
-} else if (grepl("John Hopkins", source)){
+} else if (grepl("Johns Hopkins", source)){
   
   # Use the same function for now
   fileName <-  COVID19Hub_make_filename(inputs)
@@ -103,7 +103,7 @@ output <- datasheet(mySce, "epiDataWorld_Outputs") %>%
 output$Jurisdiction = input_vars$juris_input
 output$DataSourceID = source
 output$Level = input_vars$level_input
-output$RegionalSummaryDataFile = filePath
+output$DownloadFile = filePath
 output$DownloadDateTime = download_time
 
 saveDatasheet(mySce, output, "epiDataWorld_Outputs")

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package name="epiDataWorld" displayName="Add-on to the epi package for world covid data" isAddOn="True" extendsPackage="epi" version="1.0.0">
+<package name="epiDataWorld" displayName="Add-on to the epi package for downloading World COVID-19 data" isAddOn="True" extendsPackage="epi" version="1.0.0">
   
   <transformers>
     <transformer
       name="Download"
       isPrimary="True"
-      displayName="Download World Covid19 data"
+      displayName="Download World Data"
       programName="Rscript"
       programArguments="1_download_data.R"
       isStandalone="True"
@@ -255,8 +255,8 @@
               <column name="Name" dataType="String"/>
             </columns>
             <defaultRecords>
-              <record columns="Name" values="COVID19 Hub (R package)"/>
-              <record columns="Name" values="John Hopkins (direct query)"/>
+              <record columns="Name" values="COVID-19 Data Hub"/>
+              <record columns="Name" values="Johns Hopkins University"/>
             </defaultRecords>
           </datasheet>
         </datasheets>
@@ -264,13 +264,13 @@
 
       <!-- Scenario level Datafeeds -->
         
-      <datafeed name="Inputs" displayName="Download Data - Inputs" dataScope="Scenario">
+      <datafeed name="Inputs" displayName="Data Sources - World - Download Settings" dataScope="Scenario">
         <datasheets>
-          <datasheet name="Inputs" displayName="Download Data - Inputs" isSingleRow="True">
+          <datasheet name="Inputs" displayName="Data Sources - World - Download Settings" isSingleRow="True">
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column name="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+              <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
               <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
             </columns>
@@ -282,16 +282,16 @@
         </datasheets>
       </datafeed>
         
-      <datafeed name="Outputs" displayName="Download Data - Outputs" dataScope="Scenario">
+      <datafeed name="Outputs" displayName="World Data Download - Raw Results" dataScope="Scenario">
         <datasheets>
-          <datasheet name="Outputs" displayName="Download Data - Outputs" isSingleRow="True">
+          <datasheet name="Outputs" displayName="World Data Download - Raw Results" isSingleRow="True">
             <columns>
               <column name="InputID" dataType="Integer" isPrimary="True"/>
               <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column name="DataSourceID" displayName="Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+              <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
               <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
               <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
-              <column name="RegionalSummaryDataFile" displayName="Regional summary data file" dataType="String" isExternalFile="True"/>
+              <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
               <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
             </columns>
           </datasheet>
@@ -318,13 +318,13 @@
     </layout> -->
 
     <layout name="coreforms_ScenarioDatafeeds">
-      <group name="epiDataWorld" displayName="Epi Data World" appendTo="epi_Sources">
-        <item name="Inputs" displayName="Inputs" showIf="isEither"/>
+      <group name="epiDataWorld" displayName="World" appendTo="epi_Sources">
+        <item name="Inputs" displayName="Download Settings" showIf="isEither"/>
         <group name="Results" displayName="Download Results">
-          <item name="Outputs" displayName="Raw" showIf="isResult"/>
+          <item name="Outputs" displayName="Raw Data" showIf="isResult"/>
           <item
             name="epi_DataSummary"
-            displayName="Summary"
+            displayName="Summary Data"
             transformerFilter="Download"
             showIf="isResult"
             viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
