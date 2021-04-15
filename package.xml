@@ -392,7 +392,7 @@
 
       <group name="CovidHub" displayName="COVID DATA HUB" appendTo="epi_Sources">
         
-        <item name="InputsCovidHub" displayName="Download Settings" showIf="isEither"/>
+        <item name="InputsCovidHub" displayName="Download Settings" showIf="isEither" itemTransformer="DownloadCovidHub"/>
         
         <group name="Results" displayName="Download Results">
           
@@ -413,7 +413,7 @@
 
       <group name="JHU" displayName="JHU" appendTo="epi_Sources">
         
-        <item name="InputsJHU" displayName="Download Settings" showIf="isEither"/>
+        <item name="InputsJHU" displayName="Download Settings" showIf="isEither" itemTransformer="DownloadJHU"/>
         
         <group name="Results" displayName="Download Results">
           
