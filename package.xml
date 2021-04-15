@@ -274,7 +274,7 @@
       name="DownloadCovidHub" 
       displayName="Download COVID Hub Data"
       programName="Rscript"
-      programArguments="1_download_data.R"
+      programArguments="1_download_data_HUB.R"
       isStandalone="True"
       isRunnable ="True">
 
@@ -331,7 +331,7 @@
       name="DownloadJHU" 
       displayName="Download JHU Data"
       programName="Rscript"
-      programArguments="1_download_data.R"
+      programArguments="1_download_data_JHU.R"
       isStandalone="True"
       isRunnable ="True">
 
