@@ -13,25 +13,25 @@ source(file.path(E$PackageDirectory, "0_JHU_functions.R"))
 
 # Load data
 
-inputs <- load_inputs("JHU", SCE, E)
+inputs <- load_inputs(backend = "JHU", mySce = SCE, e = E)
 
 # Save to epi
 
-save_to_epi(inputs$covidDataSubset, SCE, VARS)
+save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
 
 # Process data and save it
 
-covidDataFinal <- process_data(VARS, inputs$covidDataSubset) %>% 
+covidDataFinal <- process_data(vars = VARS, covidDataSubset = inputs$covidDataSubset) %>% 
   mutate(TransformerID = TRANSFORMER_NAME)
 saveDatasheet(SCE, covidDataFinal, "epi_DataSummary")
 
 # Write out data
 
-fileName <- make_filename(inputs$inputs)
+fileName <- make_filename(inputs_vars = inputs$input_vars)
 filePath <- file.path(E$TransferDirectory, fileName)
 
 write.csv(covidDataFinal, filePath, row.names = FALSE)
 
 # Save outpout
 
-save_output_info(SCE, inputs$input_vars, "JHU", filePath)
+save_output_info(mySce = SCE, input_vars = inputs$input_vars, backend = "JHU", filePath = filePath)
