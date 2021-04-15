@@ -193,8 +193,6 @@ make_filename <- function(inputs_vars){
 # Save output info
 save_output_info <- function(mySce, input_vars, backend, filePath){
   
-  browser()
-  
   if(backend == "JHU"){
     
     outputsheet <- "epiDataWorld_OutputsJHU"
