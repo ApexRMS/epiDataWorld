@@ -2,7 +2,7 @@
 
 library(rsyncrosim)
 E <- ssimEnvironment()
-TRANSFORMER_NAME <- "DownloadJHU"
+TRANSFORMER_NAME <- "Download Johns Hopkins University Data"
 
 # Source helpers ----------------------------------------------------------
 

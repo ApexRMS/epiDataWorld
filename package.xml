@@ -272,7 +272,7 @@
 
     <transformer 
       name="DownloadCovidHub" 
-      displayName="Download COVID Hub Data"
+      displayName="Download COVID-19 Data Hub"
       programName="Rscript"
       programArguments="1_download_data_HUB.R"
       isStandalone="True"
@@ -329,7 +329,7 @@
 
     <transformer 
       name="DownloadJHU" 
-      displayName="Download JHU Data"
+      displayName="Download Johns Hopkins University Data"
       programName="Rscript"
       programArguments="1_download_data_JHU.R"
       isStandalone="True"
