@@ -404,7 +404,8 @@
             transformerFilter="DownloadCovidHub"
             showIf="isResult"
             viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
-            viewClassAssembly="SyncroSim.Core.Forms"/>
+            viewClassAssembly="SyncroSim.Core.Forms"
+            itemTransformer="DownloadCovidHub"/>
         
         </group>
       
@@ -424,7 +425,8 @@
             transformerFilter="DownloadJHU"
             showIf="isResult"
             viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
-            viewClassAssembly="SyncroSim.Core.Forms"/>
+            viewClassAssembly="SyncroSim.Core.Forms"
+            itemTransformer="DownloadJHU"/>
         
         </group>
       
