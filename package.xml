@@ -284,9 +284,9 @@
         
         <!-- Inputs -->
         
-        <datafeed name="InputsCovidHub" displayName="COVID DATA HUB" dataScope="Scenario">
+        <datafeed name="InputsCovidHub" displayName="COVID-19 Data Hub" dataScope="Scenario">
           <datasheets>
-            <datasheet name="InputsCovidHub" displayName="COVID DATA HUB" isSingleRow="True">
+            <datasheet name="InputsCovidHub" displayName="COVID-19 Data Hub" isSingleRow="True">
               <columns>
                 <column name="InputsCovidHubID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
@@ -341,9 +341,9 @@
 
          <!-- Inputs -->
         
-        <datafeed name="InputsJHU" displayName="JHU" dataScope="Scenario">
+        <datafeed name="InputsJHU" displayName="Johns Hopkins University" dataScope="Scenario">
           <datasheets>
-            <datasheet name="InputsJHU" displayName="JHU" isSingleRow="True">
+            <datasheet name="InputsJHU" displayName="Johns Hopkins University" isSingleRow="True">
               <columns>
                 <column name="InputsJHUID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
@@ -390,7 +390,7 @@
 
     <layout name="coreforms_ScenarioDatafeeds">
 
-      <group name="CovidHub" displayName="COVID DATA HUB" appendTo="epi_Sources">
+      <group name="CovidHub" displayName="COVID-19 Data Hub" appendTo="epi_Sources">
         
         <item name="InputsCovidHub" displayName="Download Settings" showIf="isEither" itemTransformer="DownloadCovidHub"/>
         
@@ -411,7 +411,7 @@
       
       </group>
 
-      <group name="JHU" displayName="JHU" appendTo="epi_Sources">
+      <group name="JHU" displayName="Johns Hopkins University" appendTo="epi_Sources">
         
         <item name="InputsJHU" displayName="Download Settings" showIf="isEither" itemTransformer="DownloadJHU"/>
         
