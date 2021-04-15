@@ -1,7 +1,7 @@
 # Covid Hub Helpers -------------------------------------------------------
 
-COVID19Hub_query_clean <- function(inputs_vars){
-  
+COVID19Hub_query_clean <- function(input_vars){
+
   # Make admin level name
   admin_level_name <- paste0("administrative_area_level_", 
                              input_vars$level_covid)

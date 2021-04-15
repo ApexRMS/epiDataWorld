@@ -9,7 +9,7 @@ load_inputs <- function(backend, mySce, e){
     
   } else if(backend == "HUB"){
     
-    inputsheet <- "epiDataWorld_InputsCovidHUB"
+    inputsheet <- "epiDataWorld_InputsCovidHub"
     
   }
   
@@ -18,8 +18,7 @@ load_inputs <- function(backend, mySce, e){
   
   if(backend == "HUB"){
     
-    
-    covidDataSubset <- COVID19Hub_query_clean(inputs)
+    covidDataSubset <- COVID19Hub_query_clean(input_vars)
     
   } else if (backend == "JHU"){
     
@@ -200,7 +199,7 @@ save_output_info <- function(mySce, input_vars, backend, filePath){
     
   } else if(backend == "HUB"){
     
-    outputsheet <- "epiDataWorld_OutputsCovidHUB"
+    outputsheet <- "epiDataWorld_OutputsCovidHub"
     sourceID <- "COVID-19 Data Hub"
     
   }
