@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package name="epiDataWorld" displayName="Add-on to the epi package for downloading World COVID-19 data" isAddOn="True" extendsPackage="epi" version="1.0.0">
+<package 
+  name="epiDataWorld" 
+  displayName="Add-on to the epi package for downloading World COVID-19 data" 
+  isAddOn="True" 
+  extendsPackage="epi" 
+  version="1.0.0">
   
   <transformers>
-    <transformer
-      name="Download"
-      isPrimary="True"
-      displayName="Download World Data"
-      programName="Rscript"
-      programArguments="1_download_data.R"
-      isStandalone="True"
-      isRunnable ="True">
+
+    <transformer name="Primary" isPrimary="True">
+
+      <include>
+        <transformer name="DownloadCovidHub"/>
+        <transformer name="DownloadJHU"/>
+      </include>
       
       <datafeeds>
 
-      <!-- Project level Datafeeds -->
+        <!-- Global, project level Datafeeds -->
       
-      <datafeed name="AllJurisdictions" displayName="Jurisdictions" dataScope="Project">
-        <datasheets>
-          <datasheet name="AllJurisdictions" displayName="Jurisdictions" valueMember="AllJurisdictionsID" displayMember="Name">
-            <columns>
-              <column name="AllJurisdictionsID" dataType="Integer" isPrimary="True"/>
-              <column name="ProjectID" dataType="Integer"/>
-              <column name="Name" dataType="String"/>
-            </columns>
-            <defaultRecords>
-              <record columns="Name" values="World"/>
+        <datafeed name="AllJurisdictions" displayName="Jurisdictions" dataScope="Project">
+          <datasheets>
+            <datasheet name="AllJurisdictions" displayName="Jurisdictions" valueMember="AllJurisdictionsID" displayMember="Name">
+              <columns>
+                <column name="AllJurisdictionsID" dataType="Integer" isPrimary="True"/>
+                <column name="ProjectID" dataType="Integer"/>
+                <column name="Name" dataType="String"/>
+              </columns>
+              <defaultRecords>
+              <record columns="Name" values="All Countries"/>
               <record columns="Name" values="Afghanistan"/>
               <record columns="Name" values="Angola"/>
               <record columns="Name" values="Albania"/>
@@ -224,12 +228,12 @@
               <record columns="Name" values="South Africa"/>
               <record columns="Name" values="Zambia"/>
               <record columns="Name" values="Zimbabwe"/>
-            </defaultRecords>
-          </datasheet>
-        </datasheets>
-      </datafeed>
+              </defaultRecords>
+            </datasheet>
+          </datasheets>
+        </datafeed>
 
-      <datafeed name="AllLevels" displayName="Levels" dataScope="Project" >
+        <datafeed name="AllLevels" displayName="Levels" dataScope="Project" >
         <datasheets>
           <datasheet name="AllLevels" displayName="Levels" valueMember="AllLevelsID" displayMember="Name">
             <columns>
@@ -244,93 +248,188 @@
             </defaultRecords>
           </datasheet>
         </datasheets>
-      </datafeed>
+        </datafeed>
 
-      <datafeed name="AllDataSources" displayName="DataSources" dataScope="Project" >
-        <datasheets>
-          <datasheet name="AllDataSources" displayName="DataSources" valueMember="AllDataSourcesID" displayMember="Name">
-            <columns>
-              <column name="AllDataSourcesID" dataType="Integer" isPrimary="True"/>
-              <column name="ProjectID" dataType="Integer"/>
-              <column name="Name" dataType="String"/>
-            </columns>
-            <defaultRecords>
-              <record columns="Name" values="COVID-19 Data Hub"/>
-              <record columns="Name" values="Johns Hopkins University"/>
-            </defaultRecords>
-          </datasheet>
-        </datasheets>
-      </datafeed>
+        <datafeed name="AllDataSources" displayName="DataSources" dataScope="Project" >
+          <datasheets>
+            <datasheet name="AllDataSources" displayName="DataSources" valueMember="AllDataSourcesID" displayMember="Name">
+              <columns>
+                <column name="AllDataSourcesID" dataType="Integer" isPrimary="True"/>
+                <column name="ProjectID" dataType="Integer"/>
+                <column name="Name" dataType="String"/>
+              </columns>
+              <defaultRecords>
+                <record columns="Name" values="COVID-19 Data Hub"/>
+                <record columns="Name" values="Johns Hopkins University"/>
+              </defaultRecords>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+         
+      </datafeeds>
 
+    </transformer>
+
+    <transformer 
+      name="DownloadCovidHub" 
+      displayName="Download COVID Hub Data"
+      programName="Rscript"
+      programArguments="1_download_data.R"
+      isStandalone="True"
+      isRunnable ="True">
+
+      <datafeeds>
+      
       <!-- Scenario level Datafeeds -->
         
-      <datafeed name="Inputs" displayName="Data Sources - World - Download Settings" dataScope="Scenario">
-        <datasheets>
-          <datasheet name="Inputs" displayName="Data Sources - World - Download Settings" isSingleRow="True">
-            <columns>
-              <column name="InputID" dataType="Integer" isPrimary="True"/>
-              <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
-              <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
-              <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
-            </columns>
-            <!-- Not possible to set defualt values with validated data - would need dll -->
-            <!-- <defaultRecords>
-              <record columns="Jurisdiction" values="World"/>
-            </defaultRecords> -->
-          </datasheet>
-        </datasheets>
-      </datafeed>
+        <!-- Inputs -->
         
-      <datafeed name="Outputs" displayName="World Data Download - Raw Results" dataScope="Scenario">
-        <datasheets>
-          <datasheet name="Outputs" displayName="World Data Download - Raw Results" isSingleRow="True">
-            <columns>
-              <column name="InputID" dataType="Integer" isPrimary="True"/>
-              <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-              <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
-              <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
-              <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
-              <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
-              <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
-            </columns>
-          </datasheet>
-        </datasheets>
-      </datafeed>
+        <datafeed name="InputsCovidHub" displayName="COVID DATA HUB" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="InputsCovidHub" displayName="COVID DATA HUB" isSingleRow="True">
+              <columns>
+                <column name="InputsCovidHubID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="Country" displayName="Country" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+              </columns>
+              <!-- Not possible to set defualt values with validated data - would need dll -->
+              <!-- <defaultRecords>
+                <record columns="Jurisdiction" values="World"/>
+              </defaultRecords> -->
+            </datasheet>
+          </datasheets>
+        </datafeed>
+      
+        <!-- Outputs -->
+
+        <datafeed name="OutputsCovidHub" displayName="Raw Results" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="OutputsCovidHub" displayName="Raw Results" isSingleRow="True">
+              <columns>
+                <column name="OutputsCovidHubID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+                <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
+              </columns>
+            </datasheet>
+          </datasheets>
+        </datafeed>
     
       </datafeeds>
       
       <pipeline>
-        <datafeed name="Inputs"/>
+        <datafeed name="InputsCovidHub"/>
       </pipeline>
     
     </transformer>
+
+    <transformer 
+      name="DownloadJHU" 
+      displayName="Download JHU Data"
+      programName="Rscript"
+      programArguments="1_download_data.R"
+      isStandalone="True"
+      isRunnable ="True">
+
+      <datafeeds>
+
+      <!-- Scenario level Datafeeds -->
+
+         <!-- Inputs -->
+        
+        <datafeed name="InputsJHU" displayName="JHU" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="InputsJHU" displayName="JHU" isSingleRow="True">
+              <columns>
+                <column name="InputsJHUID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="Country" displayName="Country" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+              </columns>
+              <!-- Not possible to set defualt values with validated data - would need dll -->
+              <!-- <defaultRecords>
+                <record columns="Jurisdiction" values="World"/>
+              </defaultRecords> -->
+            </datasheet>
+          </datasheets>
+        </datafeed>
+      
+        <!-- Outputs -->
+
+        <datafeed name="OutputsJHU" displayName="Raw Results" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="OutputsJHU" displayName="Raw Results" isSingleRow="True">
+              <columns>
+                <column name="OutputsJHUID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+                <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
+              </columns>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+
+      </datafeeds>
+
+      <pipeline>
+        <datafeed name="InputsJHU"/>
+      </pipeline>
+
+    </transformer>
+
   </transformers>
   
   <layouts>
- 
-    <!-- Uncomment this to expose the Project-level datasheets of this package
-    <layout name="coreforms_ProjectDatafeeds">
-      <group name="OtherVariables" displayName="OtherVariables" insertAfter="epi_Jurisdiction">
-        <item name="AllJurisdictions" displayName="Jurisdictions"/>
-        <item name="AllLevels" displayName="Levels"/>
-      </group>
-    </layout> -->
 
     <layout name="coreforms_ScenarioDatafeeds">
-      <group name="epiDataWorld" displayName="World" appendTo="epi_Sources">
-        <item name="Inputs" displayName="Download Settings" showIf="isEither"/>
+
+      <group name="CovidHub" displayName="COVID DATA HUB" appendTo="epi_Sources">
+        
+        <item name="InputsCovidHub" displayName="Download Settings" showIf="isEither"/>
+        
         <group name="Results" displayName="Download Results">
-          <item name="Outputs" displayName="Raw Data" showIf="isResult"/>
+          
+          <item name="OutputsCovidHub" displayName="Raw Data" showIf="isResult"/>
+          
           <item
             name="epi_DataSummary"
             displayName="Summary Data"
-            transformerFilter="Download"
+            transformerFilter="DownloadCovidHub"
             showIf="isResult"
             viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
             viewClassAssembly="SyncroSim.Core.Forms"/>
+        
         </group>
+      
       </group>
+
+      <group name="JHU" displayName="JHU" appendTo="epi_Sources">
+        
+        <item name="InputsJHU" displayName="Download Settings" showIf="isEither"/>
+        
+        <group name="Results" displayName="Download Results">
+          
+          <item name="OutputsJHU" displayName="Raw Data" showIf="isResult"/>
+          
+          <item
+            name="epi_DataSummary"
+            displayName="Summary Data"
+            transformerFilter="DownloadJHU"
+            showIf="isResult"
+            viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
+            viewClassAssembly="SyncroSim.Core.Forms"/>
+        
+        </group>
+      
+      </group>
+    
     </layout>
   
   </layouts>
