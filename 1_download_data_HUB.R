@@ -10,7 +10,6 @@ TRANSFORMER_NAME <- "Download COVID-19 Data Hub"
 source(file.path(E$PackageDirectory, "0_epiDataWorld_env.R"))
 source(file.path(E$PackageDirectory, "0_epiDataWorld_functions.R"))
 source(file.path(E$PackageDirectory, "0_CovidHUB_functions.R"))
-source(file.path(E$PackageDirectory, "0_JHU_functions.R"))
 
 # 1. Load data
 
@@ -24,7 +23,7 @@ save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
 
 covidDataFinal <- process_data(vars = VARS, covidDataSubset = inputs$covidDataSubset) %>% 
   mutate(TransformerID = TRANSFORMER_NAME)
-saveDatasheet(SCE, covidDataFinal, "epi_DataSummary")
+saveDatasheet(SCE, covidDataFinal, "epi_DataSummary", append = TRUE)
 
 # 4. Write out data
 
