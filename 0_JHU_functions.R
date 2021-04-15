@@ -1,3 +1,4 @@
+# JHU Helpers -------------------------------------------------------------
 
 JHUDirect_query_clean <- function(input_vars, env){
   
