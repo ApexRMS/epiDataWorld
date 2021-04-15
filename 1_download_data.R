@@ -1,6 +1,9 @@
 # Epi World data package
-# Using package COVID19
-# WIP
+
+# Capture args ------------------------------------------------------------
+
+args <- commandArgs(trailingOnly = TRUE)
+source <- args[1]
 
 # Load packages -----------------------------------------------------------
 
