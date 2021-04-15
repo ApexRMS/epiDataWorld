@@ -396,7 +396,7 @@
         
         <group name="Results" displayName="Download Results">
           
-          <item name="OutputsCovidHub" displayName="Raw Data" showIf="isResult"/>
+          <item name="OutputsCovidHub" displayName="Raw Data" showIf="isResult" itemTransformer="DownloadCovidHub"/>
           
           <item
             name="epi_DataSummary"
@@ -417,7 +417,7 @@
         
         <group name="Results" displayName="Download Results">
           
-          <item name="OutputsJHU" displayName="Raw Data" showIf="isResult"/>
+          <item name="OutputsJHU" displayName="Raw Data" showIf="isResult" itemTransformer="DownloadJHU"/>
           
           <item
             name="epi_DataSummary"
