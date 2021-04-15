@@ -1,10 +1,5 @@
 # Epi World data package
 
-# Capture args ------------------------------------------------------------
-
-args <- commandArgs(trailingOnly = TRUE)
-source <- args[1]
-
 # Load packages -----------------------------------------------------------
 
 library(rsyncrosim)
