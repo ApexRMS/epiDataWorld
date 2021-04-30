@@ -122,8 +122,10 @@ rollback <- function(df, column){
   
   if(is.data.frame(df)){
     
-    df[[column]] <- df[[column]] - lag(df[[column]])
-    df[[column]][is.na(df[[column]])] <- 0
+    df <- df %>% 
+      mutate(across(!where(is.Date), 
+                    ~(.x - lag(.x, n = 1L, default = 0)), 
+                    .names = "daily{.col}"))
     
   } else {
     
@@ -136,39 +138,26 @@ rollback <- function(df, column){
 }
 
 # Process data
-process_data <- function(vars, covidDataSubset){
+process_data <- function(covidDataSubset, backend, lookup){
   
-  covidDataFinal <- data.frame()
+  # browser()
   
-  if ("Cases - Daily" %in% vars){
-    
-    # Need to apply rollback function
-    covidDataFinal <- covidDataFinal %>% 
-      bind_rows(
-        covidDataSubset %>% 
-          rename(Timestep = date, value = confirmed) %>% 
-          arrange(Timestep) %>%
-          group_by(Jurisdiction) %>%
-          group_modify(~rollback(.x, column = "value")) %>% 
-          filter(value >= 0) %>% 
-          mutate(Variable = "Cases - Daily") %>% 
-          ungroup()
-        
-      )
-    
-  }
+  if(backend == "HUB"){
   
-  if ("Cases - Cumulative" %in% vars){
-    
-    # Already cumulative, just need to rename
-    covidDataFinal <- covidDataFinal %>% 
-      bind_rows(
-        covidDataSubset %>% 
-          rename(Timestep = date, value = confirmed) %>% 
-          mutate(Variable = "Cases - Cumulative") %>% 
-          ungroup()
-      )
-    
+  covidDataFinal <- covidDataSubset %>% 
+    arrange(Timestep = date) %>%
+    group_by(Jurisdiction) %>%
+    nest() %>% 
+    mutate(data = list(purrr::map_df(data, ~rollback(.x)))) %>% 
+    unnest(cols = c(data)) %>%  
+    pivot_longer(cols = c(starts_with("daily"), vaccines, tests, confirmed, recovered, deaths), 
+                 names_to = "Variable", values_to = "Value") %>% 
+    left_join(lookup, by = c("Variable" = "RAWVARS_HUB")) %>% 
+    select(-c(Variable, RAWVARS_JHU)) %>% rename(Variable = VARS) %>% 
+    filter(!is.na(Variable))
+  
+  } else if (backend == "JHU"){
+    # TODO
   }
   
   return(covidDataFinal)
