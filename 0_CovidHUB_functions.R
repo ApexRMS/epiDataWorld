@@ -19,13 +19,16 @@ COVID19Hub_query_clean <- function(input_vars){
   composeName <- !(input_vars$level_covid == 1)
   
   covidDataSubset <- covidData %>% ungroup() %>% 
-    select(date, confirmed, Jurisdiction = all_of(admin_level_name)) %>% 
+    select(date, 
+           vaccines, tests, confirmed, recovered, deaths,
+           Jurisdiction = all_of(admin_level_name)) %>% 
     group_by(Jurisdiction) %>% 
     mutate(Jurisdiction = 
              ifelse(composeName, 
                     paste0(input_vars$juris_input, " - ", Jurisdiction), 
                     Jurisdiction))  %>%
-    mutate(confirmed = ifelse(is.na(confirmed), 0, confirmed)) %>% 
+    mutate(across(c(vaccines, tests, confirmed, recovered, deaths), 
+                  ~ifelse(is.na(.x), 0, .x))) %>% 
     arrange(date)
   
   return(covidDataSubset)
