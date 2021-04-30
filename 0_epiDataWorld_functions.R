@@ -42,7 +42,7 @@ check_inputs <- function(inputs){
     
     juris_input <- inputs$Country
     
-    if (juris_input == "All Countries"){
+    if (juris_input == "[All Countries]"){
       
       juris_covid <- NULL
       
