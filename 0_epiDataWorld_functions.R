@@ -31,7 +31,7 @@ load_inputs <- function(backend, mySce, e){
                   covidDataSubset = covidDataSubset)
   
   return(outList)
-    
+  
 }
 
 # Check inputs
@@ -138,28 +138,21 @@ rollback <- function(df, column){
 }
 
 # Process data
-process_data <- function(covidDataSubset, backend, lookup){
+process_data <- function(covidDataSubset, lookup){
   
   # browser()
   
-  if(backend == "HUB"){
-  
   covidDataFinal <- covidDataSubset %>%
-    rename(Timestep = date) %>% 
     arrange(Timestep) %>%
     group_by(Jurisdiction) %>%
     nest() %>% 
     mutate(data = list(purrr::map_df(data, ~rollback(.x)))) %>% 
     unnest(cols = c(data)) %>%  
-    pivot_longer(cols = c(starts_with("daily"), vaccines, tests, confirmed, recovered, deaths), 
+    pivot_longer(cols = starts_with(c("daily", "vacc", "test", "conf", "rec", "dea")), 
                  names_to = "Variable", values_to = "Value") %>% 
-    left_join(lookup, by = c("Variable" = "RAWVARS_HUB")) %>% 
-    select(-c(Variable, RAWVARS_JHU)) %>% rename(Variable = VARS) %>% 
+    left_join(lookup, by = c("Variable" = "RAWVARS")) %>% 
+    select(-c(Variable)) %>% rename(Variable = VARS) %>% 
     filter(!is.na(Variable))
-  
-  } else if (backend == "JHU"){
-    # TODO
-  }
   
   return(covidDataFinal)
   
