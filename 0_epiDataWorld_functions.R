@@ -144,8 +144,9 @@ process_data <- function(covidDataSubset, backend, lookup){
   
   if(backend == "HUB"){
   
-  covidDataFinal <- covidDataSubset %>% 
-    arrange(Timestep = date) %>%
+  covidDataFinal <- covidDataSubset %>%
+    rename(Timestep = date) %>% 
+    arrange(Timestep) %>%
     group_by(Jurisdiction) %>%
     nest() %>% 
     mutate(data = list(purrr::map_df(data, ~rollback(.x)))) %>% 
