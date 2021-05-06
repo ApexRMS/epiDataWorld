@@ -28,7 +28,7 @@
                 <column name="Name" dataType="String"/>
               </columns>
               <defaultRecords>
-              <record columns="Name" values="All Countries"/>
+              <record columns="Name" values="[All Countries]"/>
               <record columns="Name" values="Afghanistan"/>
               <record columns="Name" values="Angola"/>
               <record columns="Name" values="Albania"/>
