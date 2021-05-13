@@ -120,6 +120,8 @@ lookup_level <- function(level){
 # Calculate rollback
 rollback <- function(df, column){
   
+  # browser()
+  
   if(is.data.frame(df)){
     
     df <- df %>% 
