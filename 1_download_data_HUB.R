@@ -21,8 +21,8 @@ save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
 
 # 3. Process data and save it
 
-covidDataFinal <- process_data(covidDataSubset = inputs$covidDataSubset, 
-                               backend = "HUB", lookup = LOOKUP) %>% 
+covidDataFinal <- process_data(covidDataSubset = inputs$covidDataSubset,
+                               lookup = LOOKUP) %>% 
   mutate(TransformerID = TRANSFORMER_NAME) 
 saveDatasheet(SCE, covidDataFinal, "epi_DataSummary", append = TRUE)
 
