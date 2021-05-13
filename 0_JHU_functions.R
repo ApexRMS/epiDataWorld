@@ -142,8 +142,17 @@ JHU_clean_data <- function(df, scope, level, crosswalk,
         stop("No province/state available for this country.")
       } else {
         df <- df %>% 
+          filter(!is.na(Province_State)) %>% 
           mutate(Jurisdiction = paste0(Country_Region, " - ", Province_State))
       }
+      
+      if(filter_country == "Canada"){
+        df <- df %>% 
+          filter(!(Province_State %in% c("Diamond Princess", 
+                                         "Grand Princess", 
+                                         "Repatriated Travellers")))
+      }
+      
       
     } else if (level == 3){
       
