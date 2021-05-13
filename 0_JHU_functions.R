@@ -163,7 +163,8 @@ JHU_clean_data <- function(df, scope, level, crosswalk,
     mutate(Timestep=lubridate::as_date(Timestep, format="%m/%d/%y")) %>% 
     group_by(Jurisdiction, Variable, Timestep) %>% 
     summarise(Value = sum(Value)) %>% 
-    ungroup
+    ungroup() %>% 
+    pivot_wider(names_from = Variable, values_from = Value)
   
   return(df_clean)
   
