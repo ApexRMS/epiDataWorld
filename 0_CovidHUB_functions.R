@@ -29,7 +29,8 @@ COVID19Hub_query_clean <- function(input_vars){
                     Jurisdiction))  %>%
     mutate(across(c(vaccines, tests, confirmed, recovered, deaths), 
                   ~ifelse(is.na(.x), 0, .x))) %>% 
-    arrange(date)
+    arrange(date) %>% 
+    rename(Timestep = date)
   
   return(covidDataSubset)
   
