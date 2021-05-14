@@ -28,10 +28,10 @@ saveDatasheet(SCE, covidDataFinal, "epi_DataSummary", append = TRUE)
 
 # 4. Write out data
 
-fileName <- make_filename(inputs_vars = inputs$input_vars)
+fileName <- make_filename(inputs_vars = inputs$input_vars, backend = "JHU")
 filePath <- file.path(E$TransferDirectory, fileName)
 
-write.csv(covidDataFinal, filePath, row.names = FALSE)
+write.csv(inputs$raw, filePath, row.names = FALSE)
 
 # 5. Save outpout
 
