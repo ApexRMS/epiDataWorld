@@ -28,7 +28,8 @@ load_inputs <- function(backend, mySce, e){
   
   outList <- list(inputs = inputs, 
                   input_vars = input_vars, 
-                  covidDataSubset = covidDataSubset)
+                  covidDataSubset = covidDataSubset$subset, 
+                  rawData = covidDataSubset$raw)
   
   return(outList)
   
@@ -161,7 +162,7 @@ process_data <- function(covidDataSubset, lookup){
 }
 
 # Make file name
-make_filename <- function(inputs_vars){
+make_filename <- function(inputs_vars, backend){
   
   juris_no_space <- gsub("[[:space:]]", "_", inputs_vars$juris_input)
   # level_input <- gsub("[[:space:]]", "_", level_input)
@@ -169,7 +170,8 @@ make_filename <- function(inputs_vars){
   # level_input <- gsub("[[:digit:]]", "", level_input)
   
   fileName <- paste0("COVID19_Data_", juris_no_space, 
-                     "_by_level_", inputs_vars$level_covid, ".csv")
+                     "_by_level_", inputs_vars$level_covid, 
+                     "_ ", backend, ".csv")
   
   return(fileName)
 }
@@ -181,12 +183,14 @@ save_output_info <- function(mySce, input_vars, backend, filePath){
     
     outputsheet <- "epiDataWorld_OutputsJHU"
     sourceID <- "Johns Hopkins University"
+    URL <- JHU_BASE_URL
     
   } else if(backend == "HUB"){
     
     outputsheet <- "epiDataWorld_OutputsCovidHub"
     sourceID <- "COVID-19 Data Hub"
-    
+    URL <- HUB_URL
+
   }
   
   download_time <- as.character(Sys.time())
@@ -197,6 +201,7 @@ save_output_info <- function(mySce, input_vars, backend, filePath){
   output$DataSourceID = sourceID
   output$Level = input_vars$level_input
   output$DownloadFile = filePath
+  output$DownloadURL = URL
   output$DownloadDateTime = download_time
   
   saveDatasheet(mySce, output, outputsheet)
