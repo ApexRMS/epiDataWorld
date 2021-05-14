@@ -25,3 +25,8 @@ RAWVARS <- c("confirmed", "dailyconfirmed",
              "vaccines", "dailyvaccines")
 LOOKUP <- data.frame(VARS = VARS,
                      RAWVARS = RAWVARS)
+
+JHU_BASE_URL <- paste0("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/",
+                       "master/csse_covid_19_data/csse_covid_19_time_series/")
+
+HUB_URL <- "https://covid19datahub.io/articles/data.html"
