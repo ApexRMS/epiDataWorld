@@ -313,6 +313,7 @@
                 <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
                 <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
                 <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadURL" displayName="Download URL" dataType="String"/>
                 <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
               </columns>
             </datasheet>
@@ -370,6 +371,7 @@
                 <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
                 <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
                 <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadURL" displayName="Download URL" dataType="String"/>
                 <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
               </columns>
             </datasheet>
