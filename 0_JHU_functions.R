@@ -2,8 +2,7 @@
 
 JHUDirect_query_clean <- function(input_vars, env){
   
-  base_url <- paste0("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/",
-                     "master/csse_covid_19_data/csse_covid_19_time_series/")
+  base_url <- JHU_BASE_URL
   
   # Load crosswalk
   crosswalk <- read_csv(file.path(env$PackageDirectory, "data/HUB_JHU_crosswalk.csv"))
@@ -16,16 +15,18 @@ JHUDirect_query_clean <- function(input_vars, env){
       
       if (input_vars$level_covid == 1){ 
         # Global data, filtered to US
-        the_data <- 
+        raw <- 
           JHU_download_data(base_url, vars = c("confirmed", "deaths", "recovered"), 
-                            scope = "global") %>% 
+                            scope = "global")
+        the_data <- raw %>%
           JHU_clean_data(scope = "global", level = 1, crosswalk = crosswalk, 
                          filter_country = "United States")
         
       } else {
-        the_data <- 
+        raw <- 
           JHU_download_data(base_url, vars = c("confirmed", "deaths"), 
-                            scope = "US") %>% 
+                            scope = "US")
+        the_data <- raw %>%
           JHU_clean_data(scope = "US", level = input_vars$level_covid, 
                          crosswalk = crosswalk)
       }
@@ -36,15 +37,17 @@ JHUDirect_query_clean <- function(input_vars, env){
       
       if(input_vars$juris_covid == "[All Countries]"){
         # do not filter
-        the_data <- 
+        raw <- 
           JHU_download_data(base_url, vars = c("confirmed", "deaths", "recovered"), 
-                            scope = "global") %>% 
+                            scope = "global")
+        the_data <- raw %>% 
           JHU_clean_data(scope = "global", level = input_vars$level_covid, 
                          crosswalk = crosswalk)
       } else {
-        the_data <- 
+        raw <- 
           JHU_download_data(base_url, vars = c("confirmed", "deaths", "recovered"), 
-                            scope = "global") %>% 
+                            scope = "global")
+        the_data <- raw %>%
           JHU_clean_data(scope = "global", level = input_vars$level_covid, 
                          crosswalk = crosswalk, 
                          filter_country = input_vars$juris_covid)
@@ -53,14 +56,16 @@ JHUDirect_query_clean <- function(input_vars, env){
     } 
     
   } else { # NULL, assume all countries?
-    the_data <- 
+    raw <- 
       JHU_download_data(base_url, vars = c("confirmed", "deaths", "recovered"), 
-                        scope = "global") %>% 
+                        scope = "global")
+    the_data <- raw %>%
       JHU_clean_data(scope = "global", level = input_vars$level_covid, 
                      crosswalk = crosswalk)
   }
   
-  return(the_data)
+  return(list(subset = the_data, 
+              raw = raw))
 }
 
 JHU_download_data <- function(base_url, vars, scope){

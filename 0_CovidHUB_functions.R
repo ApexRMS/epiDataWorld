@@ -32,6 +32,7 @@ COVID19Hub_query_clean <- function(input_vars){
     arrange(date) %>% 
     rename(Timestep = date)
   
-  return(covidDataSubset)
+  return(list(subset = covidDataSubset, 
+              raw = covidData))
   
 }
