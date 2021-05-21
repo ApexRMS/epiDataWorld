@@ -30,7 +30,7 @@ load_inputs <- function(backend, mySce, e){
     
   } else if (backend == "OWD"){
     
-    covidDataSubset <- OWDDirect_query_clean(input_vars, e)
+    covidDataSubset <- OWDDirect_query_clean(input_vars, e, mySce)
     
   }
   

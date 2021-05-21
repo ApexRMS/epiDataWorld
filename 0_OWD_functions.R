@@ -5,7 +5,7 @@ library(readr)
 
 # OWD Helpers -------------------------------------------------------------
 
-load_raw_data <- function(the_url = OWID_URL){
+load_raw_data <- function(the_url = OWD_URL){
   
   df <- readr::read_csv(the_url, 
                         col_types = cols(
@@ -29,11 +29,29 @@ load_raw_data <- function(the_url = OWID_URL){
   
 }
 
-OWDDirect_query_clean <- function(input_vars, env){
+OWDDirect_query_clean <- function(input_vars, env, sce){
   
   raw <- load_raw_data()
   
-  return(list(subset = the_data, 
+  if(input_vars$juris_covid == "[All Countries]"){
+    
+    all_juris <- datasheet(sce, "epiDataWorld_AllJurisdictions")
+    all_juris <- all_juris[all_juris$name != "[All Countries]", ]
+    filter_loc <- all_juris$name
+    
+  } else {
+    
+    filter_loc <- input_vars$juris_covid
+      
+  }
+  
+  covidDataSubset <- raw %>% select(Jurisdisction = location, Timestep = date, 
+                             all_of(OWDLOOKUP$RAWVARS)) %>% 
+    pivot_longer(all_of(OWDLOOKUP$RAWVARS), names_to = "Variable", 
+                 values_to = 'Value') %>% 
+    filter(Jurisdiction %in% filter_loc)
+  
+  return(list(subset = covidDataSubset, 
               raw = raw))
   
 }
