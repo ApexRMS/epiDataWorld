@@ -402,8 +402,8 @@
               <columns>
                 <column name="InputsOWDID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
-                <column name="Country" displayName="Country" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
-                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+                <column name="Country" displayName="Country" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/> 
+                <!-- <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/> -->
               </columns>
               <!-- Not possible to set default values with validated data - would need dll -->
               <!-- <defaultRecords>
