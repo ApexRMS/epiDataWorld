@@ -11,6 +11,10 @@ load_inputs <- function(backend, mySce, e){
     
     inputsheet <- "epiDataWorld_InputsCovidHub"
     
+  } else if(backend == "OWD"){
+    
+    inputsheet <- "epiDataWorld_InputsOWD"
+    
   }
   
   inputs <- datasheet(mySce, inputsheet, lookupsAsFactors = FALSE)
@@ -23,6 +27,10 @@ load_inputs <- function(backend, mySce, e){
   } else if (backend == "JHU"){
     
     covidDataSubset <- JHUDirect_query_clean(input_vars, e)
+    
+  } else if (backend == "OWD"){
+    
+    covidDataSubset <- OWDDirect_query_clean(input_vars, e)
     
   }
   
