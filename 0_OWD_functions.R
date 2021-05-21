@@ -5,8 +5,6 @@ library(readr)
 
 # OWD Helpers -------------------------------------------------------------
 
-OWID_URL <- "https://covid.ourworldindata.org/data/owid-covid-data.csv"
-
 load_raw_data <- function(the_url = OWID_URL){
   
   df <- readr::read_csv(the_url, 
@@ -32,5 +30,10 @@ load_raw_data <- function(the_url = OWID_URL){
 }
 
 OWDDirect_query_clean <- function(input_vars, env){
+  
+  raw <- load_raw_data()
+  
+  return(list(subset = the_data, 
+              raw = raw))
   
 }
