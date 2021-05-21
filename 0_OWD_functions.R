@@ -44,11 +44,15 @@ OWDDirect_query_clean <- function(input_vars, env, sce){
       
   }
   
-  covidDataSubset <- raw %>% select(Jurisdiction = location, Timestep = date, 
-                             all_of(OWDLOOKUP$RAWVARS)) %>% 
-    pivot_longer(all_of(OWDLOOKUP$RAWVARS), names_to = "Variable", 
+  covidDataSubset <-raw %>% select(Jurisdiction = location, Timestep = date, 
+                                   all_of(OWDLOOKUP$RAWVARS)) %>% 
+    pivot_longer(all_of(OWDLOOKUP$RAWVARS), names_to = "RAWVARS", 
                  values_to = 'Value') %>% 
-    filter(Jurisdiction %in% filter_loc)
+    filter(Jurisdiction %in% filter_loc) %>%
+    left_join(OWDLOOKUP, by = c("RAWVARS" = "RAWVARS")) %>% 
+    select(-RAWVARS) %>% 
+    rename(Variable = VARS) %>% 
+    filter(!is.na(Variable))
   
   return(list(subset = covidDataSubset, 
               raw = raw))
