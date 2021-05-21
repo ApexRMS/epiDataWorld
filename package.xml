@@ -399,7 +399,7 @@
         
         <datafeed name="InputsOWD" displayName="Our World in Data" dataScope="Scenario">
           <datasheets>
-            <datasheet name="InputsOWDID" displayName="Our World in Data" isSingleRow="True">
+            <datasheet name="InputsOWD" displayName="Our World in Data" isSingleRow="True">
               <columns>
                 <column name="InputsOWDID" dataType="Integer" isPrimary="True"/>
                 <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
