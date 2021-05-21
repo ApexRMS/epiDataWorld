@@ -199,6 +199,12 @@ save_output_info <- function(mySce, input_vars, backend, filePath){
     sourceID <- "COVID-19 Data Hub"
     URL <- HUB_URL
 
+  } else if(backend == "OWD"){
+    
+    outputsheet <- "epiDataWorld_OutputsOWD"
+    sourceID <- "Our World in Data"
+    URL <- OWID_URL
+    
   }
   
   download_time <- as.character(Sys.time())
