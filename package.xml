@@ -8,6 +8,7 @@
       <include>
         <transformer name="DownloadCovidHub"/>
         <transformer name="DownloadJHU"/>
+        <transformer name="DownloadOWD"/>
       </include>
       
       <datafeeds>
@@ -380,6 +381,64 @@
       </pipeline>
 
     </transformer>
+    
+    <transformer 
+      name="DownloadOWD" 
+      displayName="Download from Our World in Data"
+      programName="Rscript"
+      programArguments="1_download_data_OWD.R"
+      isStandalone="True"
+      isRunnable ="True">
+
+      <datafeeds>
+
+      <!-- Scenario level Datafeeds -->
+
+         <!-- Inputs -->
+        
+        <datafeed name="InputsOWD" displayName="Our World in Data" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="InputsOWDID" displayName="Our World in Data" isSingleRow="True">
+              <columns>
+                <column name="InputsOWDID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="Country" displayName="Country" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+              </columns>
+              <!-- Not possible to set default values with validated data - would need dll -->
+              <!-- <defaultRecords>
+                <record columns="Jurisdiction" values="World"/>
+              </defaultRecords> -->
+            </datasheet>
+          </datasheets>
+        </datafeed>
+      
+        <!-- Outputs -->
+
+        <datafeed name="OutputsOWD" displayName="Raw Results" dataScope="Scenario">
+          <datasheets>
+            <datasheet name="OutputsOWD" displayName="Raw Results" isSingleRow="True">
+              <columns>
+                <column name="OutputsOWDID" dataType="Integer" isPrimary="True"/>
+                <column name="ScenarioID" displayName="Scenario" dataType="Integer"/>
+                <column name="DataSourceID" displayName="Data Source" dataType="Integer" validationType="Datasheet" formula1="AllDataSources"/>
+                <column name="Jurisdiction" displayName="Jurisdiction" dataType="Integer" validationType="Datasheet" formula1="AllJurisdictions"/>
+                <column name="Level" displayName="Level" dataType="Integer" validationType="Datasheet" formula1="AllLevels"/>
+                <column name="DownloadFile" displayName="Download file" dataType="String" isExternalFile="True"/>
+                <column name="DownloadURL" displayName="Download URL" dataType="String"/>
+                <column name="DownloadDateTime" displayName="Download date/time" dataType="Date"/>                
+              </columns>
+            </datasheet>
+          </datasheets>
+        </datafeed>
+
+      </datafeeds>
+
+      <pipeline>
+        <datafeed name="InputsOWD"/>
+      </pipeline>
+
+    </transformer>
 
   </transformers>
   
@@ -424,6 +483,27 @@
             viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
             viewClassAssembly="SyncroSim.Core.Forms"
             itemTransformer="DownloadJHU"/>
+        
+        </group>
+      
+      </group>
+      
+      <group name="OWD" displayName="Our World in Data" appendTo="epi_Sources">
+        
+        <item name="InputsOWD" displayName="Download Settings" showIf="isEither" itemTransformer="DownloadOWD"/>
+        
+        <group name="Results" displayName="Download Results">
+          
+          <item name="OutputsOWD" displayName="Raw Data" showIf="isResult" itemTransformer="DownloadOWD"/>
+          
+          <item
+            name="epi_DataSummary"
+            displayName="Summary Data"
+            filterTransformer="DownloadOWD"
+            showIf="isResult"
+            viewClassName="SyncroSim.Core.Forms.MultiRowDataFeedView"
+            viewClassAssembly="SyncroSim.Core.Forms"
+            itemTransformer="DownloadOWD"/>
         
         </group>
       
