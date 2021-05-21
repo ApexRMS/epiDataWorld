@@ -203,7 +203,7 @@ save_output_info <- function(mySce, input_vars, backend, filePath){
     
     outputsheet <- "epiDataWorld_OutputsOWD"
     sourceID <- "Our World in Data"
-    URL <- OWID_URL
+    URL <- OWD_URL
     
   }
   

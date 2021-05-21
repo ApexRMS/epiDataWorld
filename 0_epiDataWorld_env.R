@@ -42,4 +42,4 @@ JHU_BASE_URL <- paste0("https://raw.githubusercontent.com/CSSEGISandData/COVID-1
 
 HUB_URL <- "https://covid19datahub.io/articles/data.html"
 
-OWID_URL <- "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+OWD_URL <- "https://covid.ourworldindata.org/data/owid-covid-data.csv"
