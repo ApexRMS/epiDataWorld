@@ -33,11 +33,10 @@ OWDDirect_query_clean <- function(input_vars, env, sce){
   
   raw <- load_raw_data()
   
-  if(input_vars$juris_covid == "[All Countries]"){
+  if(input_vars$juris_input == "[All Countries]"){
     
     all_juris <- datasheet(sce, "epiDataWorld_AllJurisdictions")
-    all_juris <- all_juris[all_juris$name != "[All Countries]", ]
-    filter_loc <- all_juris$name
+    filter_loc <- all_juris[all_juris$Name != "[All Countries]", ]
     
   } else {
     
@@ -45,7 +44,7 @@ OWDDirect_query_clean <- function(input_vars, env, sce){
       
   }
   
-  covidDataSubset <- raw %>% select(Jurisdisction = location, Timestep = date, 
+  covidDataSubset <- raw %>% select(Jurisdiction = location, Timestep = date, 
                              all_of(OWDLOOKUP$RAWVARS)) %>% 
     pivot_longer(all_of(OWDLOOKUP$RAWVARS), names_to = "Variable", 
                  values_to = 'Value') %>% 
