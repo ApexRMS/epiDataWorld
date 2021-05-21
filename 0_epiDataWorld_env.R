@@ -26,6 +26,17 @@ RAWVARS <- c("confirmed", "dailyconfirmed",
 LOOKUP <- data.frame(VARS = VARS,
                      RAWVARS = RAWVARS)
 
+OWDVARS <- VARS <- c("Cases - Cumulative", "Cases - Daily", 
+                     "Deaths - Cumulative", "Deaths - Daily", 
+                     "ICU patients - Cumulative", 
+                     "Hospitalizations - Cumulative")
+OWDRAWVARS <- c("total_cases", "new_cases", 
+                "total_deaths", "new_deaths", 
+                "icu_patients", 
+                "hosp_patients")
+OWDLOOKUP <- data.frame(VARS = OWDVARS,
+                        RAWVARS = OWDRAWVARS)
+
 JHU_BASE_URL <- paste0("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/",
                        "master/csse_covid_19_data/csse_covid_19_time_series/")
 
