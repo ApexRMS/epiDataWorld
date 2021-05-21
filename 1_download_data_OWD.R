@@ -34,4 +34,5 @@ write.csv(inputs$raw, filePath, row.names = FALSE)
 
 # 5. Save outpout
 
-save_output_info(mySce = SCE, input_vars = inputs$input_vars, backend = "OWD", filePath = filePath)
+save_output_info(mySce = SCE, input_vars = inputs$input_vars, backend = "OWD", 
+                 filePath = filePath)
