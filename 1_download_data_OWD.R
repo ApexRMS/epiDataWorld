@@ -16,7 +16,7 @@ inputs <- load_inputs(backend = "OWD", mySce = SCE, e = E)
 
 # 2. Save to epi
 
-save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
+save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = OWDVARS)
 
 # 3. Process data and save it
 
