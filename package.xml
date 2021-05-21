@@ -257,6 +257,7 @@
               <defaultRecords>
                 <record columns="Name" values="COVID-19 Data Hub"/>
                 <record columns="Name" values="Johns Hopkins University"/>
+                <record columns="Name" values="Our World in Data"/>
               </defaultRecords>
             </datasheet>
           </datasheets>
