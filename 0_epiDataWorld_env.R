@@ -28,8 +28,8 @@ LOOKUP <- data.frame(VARS = VARS,
 
 OWDVARS <- VARS <- c("Cases - Cumulative", "Cases - Daily", 
                      "Deaths - Cumulative", "Deaths - Daily", 
-                     "ICU patients - Cumulative", 
-                     "Hospitalizations - Cumulative")
+                     "In ICU - Daily", 
+                     "In Hospital - Daily")
 OWDRAWVARS <- c("total_cases", "new_cases", 
                 "total_deaths", "new_deaths", 
                 "icu_patients", 
