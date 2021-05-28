@@ -22,8 +22,8 @@ save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
 
 covidDataFinal <- process_data(covidDataSubset = inputs$covidDataSubset, 
                                lookup = LOOKUP) %>% 
-  mutate(TransformerID = TRANSFORMER_NAME) %>% 
-  replace_na(list(Value = 0))
+  mutate(TransformerID = TRANSFORMER_NAME) %>%
+  dplyr::filter(!is.na(Value))
 saveDatasheet(SCE, covidDataFinal, "epi_DataSummary", append = TRUE)
 
 # 4. Write out data
