@@ -26,6 +26,9 @@ RAWVARS <- c("confirmed", "dailyconfirmed",
 LOOKUP <- data.frame(VARS = VARS,
                      RAWVARS = RAWVARS)
 
+HUBVARS <- VARS
+JHUVARS <- VARS
+
 OWDVARS <- VARS <- c("Cases - Cumulative", "Cases - Daily", 
                      "Deaths - Cumulative", "Deaths - Daily", 
                      "In ICU - Daily", 

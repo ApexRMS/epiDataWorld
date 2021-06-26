@@ -17,7 +17,7 @@ inputs <- load_inputs(backend = "HUB", mySce = SCE, e = E)
 
 # 2. Save to epi
 
-save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = VARS)
+save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = HUBVARS)
 
 # 3. Process data and save it
 

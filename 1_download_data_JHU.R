@@ -16,7 +16,7 @@ inputs <- load_inputs(backend = "JHU", mySce = SCE, e = E)
 
 # 2. Save to epi
 
-save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = c(VARS, "Recovered - Daily", "Recovered - Cumulative"))
+save_to_epi(dataSubset = inputs$covidDataSubset, mySce = SCE, vars = JHUVARS)
 
 # 3. Process data and save it
 
